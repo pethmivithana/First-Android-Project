@@ -3,19 +3,19 @@ package com.example.todo_techvidvan
 import android.content.Context
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.example.todo_techvidvan.databinding.TaskItemCellBinding
-
 
 class TaskItemViewHolder(
     private val context: Context,
     private val binding: TaskItemCellBinding,
     private val clickListener: TaskItemListener
 ): RecyclerView.ViewHolder(binding.root) {
-    fun bindTaskItem(taskItem: TaskItem)
-    {
+
+    fun bindTaskItem(taskItem: TaskItem) {
         binding.name.text = taskItem.name
 
-        if(taskItem.isCompleted()){
+        if (taskItem.isCompleted()) {
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
 
@@ -26,8 +26,12 @@ class TaskItemViewHolder(
             clickListener.completeTaskItem(taskItem)
         }
 
-        binding.taskCellContainer.setOnClickListener{
+        binding.taskCellContainer.setOnClickListener {
             clickListener.editTaskItem(taskItem)
+        }
+
+        binding.deleteButton.setOnClickListener {
+            clickListener.deleteTaskItem(taskItem)
         }
     }
 }

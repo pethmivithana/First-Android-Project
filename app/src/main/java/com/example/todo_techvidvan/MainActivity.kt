@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity(), TaskItemListener {
     private val taskViewModel: TaskViewModel by viewModels {
         TaskItemModelFactory((application as TodoApplication).repository)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), TaskItemListener {
 
     private fun setRecyclerView() {
         val mainActivity = this
-        taskViewModel.taskItems.observe(this){
+        taskViewModel.taskItems.observe(this) {
             binding.todoListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(applicationContext)
                 adapter = TaskItemAdapter(it, mainActivity)
@@ -32,10 +33,14 @@ class MainActivity : AppCompatActivity(), TaskItemListener {
     }
 
     override fun editTaskItem(taskItem: TaskItem) {
-        NewTaskSheet(taskItem).show(supportFragmentManager,"newTaskTag")
+        NewTaskSheet(taskItem).show(supportFragmentManager, "newTaskTag")
     }
 
     override fun completeTaskItem(taskItem: TaskItem) {
         taskViewModel.setCompleted(taskItem)
+    }
+
+    override fun deleteTaskItem(taskItem: TaskItem) {
+        taskViewModel.deleteTaskItem(taskItem)
     }
 }

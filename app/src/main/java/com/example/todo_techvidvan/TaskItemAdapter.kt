@@ -15,6 +15,8 @@ class TaskItemAdapter(
         return TaskItemViewHolder(parent.context, binding, clickListener)
     }
 
+
+
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         holder.bindTaskItem(taskItems[position])
     }
